@@ -47,6 +47,7 @@ export const GlobalStyle = createGlobalStyle`
       Avenir, Helvetica, sans-serif !important;
     margin: 0;
     line-height: 1;
+    overscroll-behavior: none;
     touch-action: pan-y;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;

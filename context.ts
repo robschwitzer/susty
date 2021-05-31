@@ -1,15 +1,16 @@
 import { createContext } from "react";
+import { THEMES, Theme } from "components/Layout/themes";
 
 export interface TContext {
-  isMenuOpen: boolean;
-  setMenuOpen: Function;
-  handleChangeSlide: Function;
+  setCurrentSlide: Function;
   currentSlide: number;
+  theme: Theme;
+  setTheme: Function;
 }
 
 export default createContext<TContext>({
-  isMenuOpen: false,
-  setMenuOpen: () => {},
-  handleChangeSlide: () => {},
+  setCurrentSlide: () => {},
   currentSlide: 0,
+  theme: THEMES["dark"],
+  setTheme: () => {},
 });

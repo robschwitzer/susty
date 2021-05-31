@@ -1,36 +1,26 @@
 import { ReactNode, useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { Slide1, Slide2 } from "components/Slides";
+import { Slide1, Slide2, Slide3 } from "components/Slides";
 import context, { TContext } from "context";
 
 import Sidebar from "components/Sidebar";
 import TransitionWrapper from "components/TransitionWrapper";
 
 const componentMap: any[] = [
-  { Component: Slide1 }, 
+  { Component: Slide1 },
   { Component: Slide2 },
-].map(
-  (o, id) => Object.assign(o, { id })
-);
+  { Component: Slide3 },
+].map((o, id) => Object.assign(o, { id }));
 
-export default function Home(): ReactNode {
-  const { handleChangeSlide, currentSlide } = useContext<TContext>(context);
+const Home = (): ReactNode => {
+  const { setCurrentSlide, currentSlide } = useContext<TContext>(context);
 
-  const handleChange = (direction: string): void => {
-    handleChangeSlide(direction);
-  };
-
-  const children = componentMap.map(({ Component, id }) => {
-    return (
-      <TransitionWrapper
-        key={id}
-        inProp={id === currentSlide}
-      >
-        <Component onChangeSlide={handleChange} inProp={id === currentSlide} />
-      </TransitionWrapper>
-    )
-  });
+  const children = componentMap.map(({ Component, id }) => (
+    <TransitionWrapper key={id} inProp={id === currentSlide}>
+      <Component inProp={id === currentSlide} />
+    </TransitionWrapper>
+  ));
 
   return (
     <>
@@ -43,4 +33,6 @@ export default function Home(): ReactNode {
       {children}
     </>
   );
-}
+};
+
+export default Home;

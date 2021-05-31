@@ -4,13 +4,12 @@ import context, { TContext } from "context";
 import variables from "variables";
 
 interface Props {
-  isMenuOpen: boolean;
+
 }
 
 const Sidebar = ():JSX.Element => {
-  const { isMenuOpen } = useContext<TContext>(context);
   return (
-    <Container isMenuOpen={isMenuOpen}> 
+    <Container> 
       {/*  */}
     </Container>
   )

@@ -1,19 +1,15 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import variables from 'variables';
+import variables from "variables";
 
 interface Props {
   text?: string;
   onClick: any;
 }
 
-const Button = ({ text = "Click", onClick }: Props) => {
-  return (
-    <Container onClick={onClick}>
-      {text}
-    </Container>
-  );
-};;
+const Button = ({ text = "Click", onClick }: Props) => (
+  <Container onClick={onClick}>{text}</Container>
+);
 
 export default Button;
 
@@ -37,4 +33,4 @@ const Container = styled.button<Props>`
     color: ${({ theme }) => theme.bg};
     opacity: 0.1;
   }
-`; 
+`;

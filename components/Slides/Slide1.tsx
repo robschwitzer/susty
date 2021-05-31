@@ -1,11 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import Button from "components/Button";
-import Slide from "components/Slide";
+import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
+import context, { TContext } from "context";
 
 const P1 = (): ReactNode => <H1>The Road to Net Zero</H1>;
 const P2 = (): ReactNode => (
-  <Body style={{ margin: "40px 0" }}>
+  <Body>
     ‘Net zero emissions’ refers to achieving an overall balance between
     greenhouse gas emissions produced and greenhouse gas emissions taken outof
     the atmosphere.
@@ -18,12 +19,9 @@ const P3 = (): ReactNode => (
     atmosphere.
   </Body>
 );
-const P4 = ({ onChangeSlide }): ReactNode => {
-  return (
-    <div style={{ margin: "40px 0" }}>
-      <Button text="Next" onClick={() => onChangeSlide("next")} />
-    </div>
-  )
+const P4 = (): ReactNode => {
+  const { setCurrentSlide } = useContext<TContext>(context);
+  return <Button text="Next" onClick={() => setCurrentSlide(slide => slide + 1)} />
 };
 
 const componentMap: { Component: Function, id: number }[] = [
@@ -33,4 +31,4 @@ const componentMap: { Component: Function, id: number }[] = [
   { Component: P4 },
 ].map((o, id) => Object.assign(o, { id }));
 
-export const Slide1 = (props): ReactNode => <Slide componentMap={componentMap} {...props} />
+export const Slide1 = (props): ReactNode => <Template componentMap={componentMap} {...props} />

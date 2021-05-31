@@ -1,46 +1,20 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "styles/GlobalStyle";
+import context, { TContext } from "context";
 import Header from "./Header";
 import variables from "variables";
 
+import { ThemeProps } from "./themes"
 interface Props {
   children: ReactNode;
 }
 
-interface Theme {
-  fg: string;
-  bg: string;
-}
-
-interface Themes {
-  brand: Theme;
-  light: Theme;
-  dark: Theme;
-}
-
-interface StyleProps {
-  theme: Theme;
-}
-
-const THEMES: Themes = {
-  brand: {
-    fg: variables.white,
-    bg: variables.blue_primary,
-  },
-  light: {
-    fg: variables.black,
-    bg: variables.light_grey
-  },
-  dark: {
-    fg: variables.white,
-    bg: variables.black_secondary
-  }
-};
-
 const Layout = ({ children }: Props): JSX.Element => {
+  const { theme } = useContext<TContext>(context);
+  
   return (
-    <ThemeProvider theme={THEMES["dark"]}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Container>
         <Header />
@@ -52,11 +26,12 @@ const Layout = ({ children }: Props): JSX.Element => {
 
 export default Layout;
 
-const Container = styled.div<StyleProps>`
+const Container = styled.div<ThemeProps>`
   background: ${({ theme }) => theme.bg};
   box-sizing: border-box;
   color: ${({ theme }) => theme.fg};
   height: 100vh;
+  max-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 10fr;
@@ -66,8 +41,8 @@ const Container = styled.div<StyleProps>`
     "main";
 
   @media (min-width: ${variables.breakpoints.medium}px) {
-    grid-template-columns: 1fr 5fr 1fr;
-    grid-template-rows: 1fr 8fr;
+    grid-template-columns: 1.5fr 4fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
     grid-template-areas:
       "logo header"
       "sidebar main";

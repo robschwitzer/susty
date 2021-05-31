@@ -3,27 +3,28 @@ import styled from "styled-components";
 import variables from "variables";
 import context, { TContext } from "context";
 import { H1 } from "components/Typography";
+import { THEMES } from "components/Layout/themes";
 
 const Header = (): JSX.Element => {
-  const { setMenuOpen, isMenuOpen } = useContext<TContext>(context);
+  const { theme, setTheme, setCurrentSlide } = useContext<TContext>(context);
 
   return (
     <>
       <Container>
-        <Logo>
-          <a
-            href="https://sphere.guide/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Sphere
-          </a>
+        <Logo onClick={() => setCurrentSlide(0)}>
+          Sphere
         </Logo>
-        <Hamburger onClick={() => setMenuOpen((open: boolean) => !open)}>
-          {!isMenuOpen ? "🍔" : "❌"}
-        </Hamburger>
       </Container>
       <Main />
+      <Switch
+        onClick={() =>
+          setTheme((theme) =>
+            theme.name === "dark" ? THEMES["light"] : THEMES["dark"]
+          )
+        }
+      >
+        {theme.name === "dark" ? "🌝" : "🌚"}
+      </Switch>
     </>
   );
 };
@@ -31,44 +32,36 @@ const Header = (): JSX.Element => {
 export default Header;
 
 const Main = styled.div`
-  grid-area: header;
+grid-area: header;
 `;
 
 const Container = styled.div`
   align-items: center;
   grid-area: logo;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 20px;
-
-  @media (min-width: ${variables.breakpoints.medium}px) {
-    justify-content: center;
-  }
 `;
 
 const Logo = styled(H1)`
-  & > * {
-    color: ${({ theme }) => theme.fg};
-    cursor: pointer;
-    font-family: Mercury-Bold;
-    font-size: 36px;
-    padding: 0;
-    text-decoration: none;
+  color: ${({ theme }) => theme.fg};
+  cursor: pointer;
+  display: flex;
+  font-family: Mercury-Bold;
+  font-size: 36px;
+  padding: 0;
+  text-decoration: none;
 
-    @media (min-width: ${variables.breakpoints.medium}px) {
-      font-size: 64px;
-    }
+  @media (min-width: ${variables.breakpoints.medium}px) {
+    font-size: 64px;
   }
-
 `;
 
-const Hamburger = styled.a`
+const Switch = styled.a`
+  align-self: center;
   cursor: pointer;
   display: flex;
   font-size: 30px;
+  justify-content: center;
   user-select: none;
-
-  @media (min-width: ${variables.breakpoints.medium}px) {
-    display: none;
-  }
 `;

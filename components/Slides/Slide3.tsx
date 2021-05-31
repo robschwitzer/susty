@@ -3,21 +3,29 @@ import Button from "components/Button";
 import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
 import context, { TContext } from "context";
+import { THEMES } from "components/Layout/themes";
 
-const P1 = (): ReactNode => <H1>How we're doing</H1>;
+const P1 = (): ReactNode => <H1>What we can do better</H1>;
 const P2 = (): ReactNode => (
   <Body>
-    hmmmmmmm
+    ahhhh....
   </Body>
 );
 const P3 = (): ReactNode => (
   <Body>
-    ????????
+    ohhhh...
   </Body>
 );
 const P4 = (): ReactNode => {
-  const { setCurrentSlide } = useContext<TContext>(context);
-  return <Button text="???" onClick={() => setCurrentSlide(slide => slide + 1)} />
+  const { setTheme, setCurrentSlide } = useContext<TContext>(context);
+  const onClick = () => {
+    setTheme(THEMES["brand"])
+    setCurrentSlide(0);
+  }
+  
+  return (
+    <Button text="???" onClick={onClick} />
+  )
 };
 
 const componentMap: { Component: Function, id: number }[] = [
@@ -27,4 +35,4 @@ const componentMap: { Component: Function, id: number }[] = [
   { Component: P4 },
 ].map((o, id) => Object.assign(o, { id }));
 
-export const Slide2 = (props): ReactNode => <Template componentMap={componentMap} {...props} />
+export const Slide3 = (props): ReactNode => <Template componentMap={componentMap} {...props} />

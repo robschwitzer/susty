@@ -8,17 +8,17 @@ interface Props {
   strong?: boolean;
 }
 
-export const BasicTextProperties = styled.span`
+export const BasicTextProperties = styled.span<Props>`
   display: block;
   font-family: Favorit-Regular;
   -webkit-font-smoothing: antialiased;
-  line-height: ${(props: Props) => props.lineHeight || 1.2};
+  line-height: ${(props) => props.lineHeight || 1.2};
   letter-spacing: -0.8px;
 
   ​a {
-    text-decoration: ${(props: Props) =>
+    text-decoration: ${(props) =>
       props.noUnderline ? "none" : "underline"};
-    color: ${(props: Props) => props.theme.fg};
+    color: ${(props) => props.theme.fg};
     cursor: pointer;
   }
 `;
@@ -56,7 +56,7 @@ export const H4 = styled(BasicTextProperties)`
 
 export const Body = styled(BasicTextProperties)`
   font-size: 40px;
-  ${(props: Props) => props.strong && "font-family: Favorit-Medium;"}
+  ${(props) => props.strong && "font-family: Favorit-Medium;"}
 `;
 
 export const FinePrint = styled(BasicTextProperties)`
