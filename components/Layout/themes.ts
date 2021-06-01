@@ -6,30 +6,34 @@ export interface Theme {
   name: string;
 }
 
-export interface Themes {
-  brand: Theme;
-  light: Theme;
-  dark: Theme;
-}
-
 export interface ThemeProps {
   theme: Theme;
 }
 
-export const THEMES: Themes = {
-  brand: {
+export const THEMES: Theme[] = [
+  {
+    name: "dark",
+    fg: variables.white,
+    bg: variables.black_secondary
+  },
+  {
+    name: "forest",
+    bg: "#268056",
+    fg: "#f5c771"
+  },
+  {
+    name: "bright",
+    bg: "#fcba03",
+    fg: "#0379a1"
+  },
+  {
     name: "brand",
     fg: variables.white,
     bg: variables.blue_offset,
   },
-  light: {
+  {
     name: "light",
     fg: variables.black,
     bg: variables.light_grey
   },
-  dark: {
-    name: "dark",
-    fg: variables.white,
-    bg: variables.black_secondary
-  }
-};
+];

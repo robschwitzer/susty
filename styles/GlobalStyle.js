@@ -57,6 +57,7 @@ export const GlobalStyle = createGlobalStyle`
   * {
     letter-spacing: -0.02em !important;
     font-smoothing: antialiased;
+    transition: background 500ms ease;
     &:focus { outline: 0; }
   }
   

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { EffectCallback, useEffect, useRef, useState } from "react";
 
 const useInterval = (callback, delay, clear): void => {
   const savedCallback = useRef<Function | null>(null);
@@ -22,22 +22,26 @@ interface TransitionMap {
   transitionMap: boolean[];
 }
 
-export const useTransition = (items: any[], inProp: boolean, timeout: number): TransitionMap => {
-  const [transitionMap, setMap] = useState<boolean[]>(
+export const useTransition = (
+  items: any[],
+  inProp: boolean,
+  timeout: number
+): TransitionMap => {
+  const [transitionMap, setMap] = useState<TransitionMap["transitionMap"]>(
     new Array(items.length).fill(false)
   );
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       if (!inProp && transitionMap.every(Boolean)) {
-        setMap(transitionMap.map(() => false));
+        setMap(transitionMap.map((): boolean => false));
       }
-    }
+    };
   }, [inProp, transitionMap]);
 
   useInterval(
     (): void => {
-      const index: number = transitionMap.findIndex((item) => !item);
+      const index: number = transitionMap.findIndex((item): boolean => !item);
       const map: boolean[] = transitionMap;
       map[index] = true;
       setMap([...map]);

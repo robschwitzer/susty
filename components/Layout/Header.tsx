@@ -11,15 +11,17 @@ const Header = (): JSX.Element => {
   return (
     <>
       <Container>
-        <Logo onClick={() => setCurrentSlide(0)}>
-          Sphere
-        </Logo>
+        <Logo onClick={(): void => setCurrentSlide(0)}>Sphere</Logo>
       </Container>
       <Main />
       <Switch
-        onClick={() =>
-          setTheme((theme) =>
-            theme.name === "dark" ? THEMES["light"] : THEMES["dark"]
+        onClick={(): void =>
+          setTheme(
+            THEMES[
+              theme.name === "dark"
+                ? THEMES.findIndex(({ name }) => name === "light")
+                : THEMES.findIndex(({ name }) => name === "dark")
+            ]
           )
         }
       >
@@ -32,7 +34,7 @@ const Header = (): JSX.Element => {
 export default Header;
 
 const Main = styled.div`
-grid-area: header;
+  grid-area: header;
 `;
 
 const Container = styled.div`

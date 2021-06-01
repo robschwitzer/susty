@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-const Sidebar = ():JSX.Element => {
+const Sidebar = (): JSX.Element => {
   return (
     <Container> 
       {/*  */}

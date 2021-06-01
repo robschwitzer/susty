@@ -7,7 +7,7 @@ interface Props {
   onClick: any;
 }
 
-const Button = ({ text = "Click", onClick }: Props) => (
+const Button = ({ text = "Click", onClick }: Props): JSX.Element => (
   <Container onClick={onClick}>{text}</Container>
 );
 
@@ -24,9 +24,13 @@ const Container = styled.button<Props>`
   text-align: center;
   transition: all 150ms ease;
   &:hover {
-    background: ${variables.blue_offset};
-    color: ${variables.white};
+    background: ${variables.white_primary};
+    border: none;
+    color: ${variables.black_tertiary};
     transform: scale(1.05);
+    box-shadow: 0px 0px 5px 1px ${variables.black_secondary} inset;
+    -webkit-box-shadow: 0px 0px 5px 1px ${variables.black_secondary} inset;
+    -moz-box-shadow: 0px 0px 5px 1px ${variables.black_secondary} inset;
   }
   &:active {
     background: ${({ theme }) => theme.fg};
