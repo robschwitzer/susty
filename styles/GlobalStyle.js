@@ -49,6 +49,8 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1;
     overscroll-behavior: none;
     touch-action: pan-y;
+    max-height: 100vh;
+    max-width: 100vw;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
     -webkit-touch-callout: none;

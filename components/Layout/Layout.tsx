@@ -30,7 +30,7 @@ const Container = styled.div<ThemeProps>`
   color: ${({ theme }) => theme.fg};
   display: grid;
   grid-template-columns: 1.5fr 4fr 1fr;
-  grid-template-rows: 1fr 10fr;
+  grid-template-rows: minmax(auto, 10vh) minmax(100vh, auto);
   gap: 0px 0px;
   grid-template-areas:
     "logo header switch"

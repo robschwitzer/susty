@@ -6,7 +6,7 @@ import Layout from "components/Layout/Layout";
 import { THEMES, Theme } from "components/Layout/themes";
 import variables from "variables";
 import { Intro1, Intro2, Intro3 } from "components/Slides/Intro";
-import { Main1, Main2 } from "components/Slides/Main";
+import { Main1, Main2, Main3, Main4, Main5, Main6, Main7 } from "components/Slides/Main";
 
 export const STACK_NAMES = {
   INTRO: "intro",
@@ -22,6 +22,11 @@ const introComponents: TComponent[] = [
 const mainComponents: TComponent[] = [
   { Component: Main1 },
   { Component: Main2 },
+  { Component: Main3 },
+  { Component: Main4 },
+  { Component: Main5 },
+  { Component: Main6 },
+  { Component: Main7 },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id, stackName: STACK_NAMES.MAIN }));
 
 export const componentMaps: TComponent[][] = [introComponents, mainComponents];

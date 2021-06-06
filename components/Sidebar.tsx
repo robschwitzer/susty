@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactNode, useContext, useMemo } from "react";
 import context, { TContext } from "context";
 import variables from "variables";
@@ -21,13 +21,15 @@ const mainStack = componentMaps
   /* filter out the first/intro slide */
   .filter(({ Component }) => Component.displayName !== "Main1");
 
-interface Props {
-  inProp: boolean;
-}
-
 const Sidebar = (): JSX.Element => {
-  const { currentStack, setCurrentStack, setTheme, showSidebar } =
-    useContext<TContext>(context);
+  const {
+    currentSlide,
+    currentStack,
+    setCurrentSlide,
+    setCurrentStack,
+    setTheme,
+    showSidebar,
+  } = useContext<TContext>(context);
 
   const stackName: string = useMemo(
     (): string | null =>
@@ -51,28 +53,39 @@ const Sidebar = (): JSX.Element => {
     }, slide);
   };
 
+  const onClickCategory = (id) => {    
+    setCurrentSlide(id);
+  };
+
   const children = useMemo((): ReactNode | ReactNode[] => {
     return stackName === STACK_NAMES.INTRO ? (
-      <NavItem key={1} onClick={() => onClickNavigation(STACK_NAMES.MAIN, "1")}>
-        Navigation
+      <NavItem onClick={() => onClickNavigation(STACK_NAMES.MAIN, "1")}>
+        Explore
       </NavItem>
     ) : (
       [
-        ...mainStack.map(({ Component, id }) => (
-          <NavItem key={id}>{Component.displayName}</NavItem>
-        )),
+        ...mainStack.map(({ Component, id }) => {
+          return (
+            <NavItem
+              selected={currentSlide === id}
+              onClick={() => onClickCategory(id)}
+              key={id}
+            >
+            &nbsp;{Component.displayName}
+            </NavItem>
+          )
+        }),
         <NavItem
           key={"backtointro"}
-          style={{ margin: "20px 0" }}
           onClick={() => onClickNavigation(STACK_NAMES.INTRO, "0")}
         >
-          👈
+          ← Back
         </NavItem>,
       ]
     );
-  }, [stackName]);
+  }, [stackName, currentSlide]);
 
-  if (!stackName) return null;
+  if (!stackName || !showSidebar) return null;
 
   return (
     <TransitionWrapper
@@ -92,20 +105,31 @@ const Container = styled.section`
   flex-direction: column;
   grid-area: sidebar;
   padding-top: 11vh;
-
-  &:nth-child(even) {
-    margin: 20px 0;
-  }
 `;
 
-const NavItem = styled(Body)`
+const NavItem = styled(Body)<{ selected?: boolean; }>`
+  --left: 6vw;
+  align-self: flex-start;
   cursor: pointer;
-  opacity: 0.8;
+  display: flex;
+  margin-left: var(--left);
+  opacity: 0.7;
   transition: all 200ms ease;
   user-select: none;
 
+  &:nth-child(even) {
+    margin: 20px 0 20px var(--left);
+  }
+
+  ${({ selected }) => selected && css`
+    opacity: 1;
+    &:before {
+      content: "→";
+    }
+  `}
+  
   &:hover {
-    border-bottom: ${({ theme }) => `1px solid ${theme.fg}`};
+    text-decoration: underline;
     opacity: 1;
     transform: scale(1.01);
   }

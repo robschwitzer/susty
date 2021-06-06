@@ -3,8 +3,9 @@ import Button from "components/Button";
 import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
 import context, { TContext, TComponent } from "context";
+import { THEMES } from "components/Layout/themes";
 
-const P1 = (): ReactNode => <H1>Sup Binch</H1>;
+const P1 = (): ReactNode => <H1>In addition to things that we can do as an organization, we should strive to affect change on an individual level.</H1>;
 const P2 = (): ReactNode => (
   <Body>
     ‘Net zero emissions’ refers to achieving an overall balance between
@@ -20,8 +21,12 @@ const P3 = (): ReactNode => (
   </Body>
 );
 const P4 = (): ReactNode => {
-  const { setCurrentSlide } = useContext<TContext>(context);
-  return <Button onClick={(): void => setCurrentSlide((slide) => slide + 1)} />;
+  const { setCurrentSlide, setTheme } = useContext<TContext>(context);
+  const onClick = (): void => {
+    setCurrentSlide((slide) => slide + 1);
+    setTheme(THEMES.find(({ name }) => name === "forest"));
+  }
+  return <Button text="Explore" onClick={onClick} />;
 };
 
 const componentMap: TComponent[] = [

@@ -50,7 +50,7 @@ const P4 = (): ReactNode => {
     setCurrentStack(null, "0");
   };
 
-  return <Button text="Hot Take ➡" onClick={onClick} />;
+  return <Button text="Hot Take →" onClick={onClick} />;
 };
 
 const componentMap: TComponent[] = [

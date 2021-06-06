@@ -4,7 +4,7 @@ import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
 import context, { TContext, TComponent } from "context";
 
-const TITLE = "At Home"
+const TITLE = "Waste"
 
 const P1 = (): ReactNode => <H1>{TITLE}</H1>;
 const P2 = (): ReactNode => (
@@ -30,13 +30,13 @@ const componentMap: TComponent[] = [
   { Component: P1 },
   { Component: P2 },
   { Component: P3 },
-  // { Component: P4 },
+  { Component: P4 },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id }));
 
-export const Main2 = (props): ReactNode => {
+export const Main7 = (props): ReactNode => {
   return (
     <Template componentMap={componentMap} {...props} />
   )
 };
 
-Main2.displayName = TITLE;
+Main7.displayName = TITLE;

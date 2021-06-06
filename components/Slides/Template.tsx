@@ -50,7 +50,7 @@ const Container = styled.section`
       margin: 40px 0;
     }
     :last-child {
-      margin-bottom: 10vh;
+      margin-bottom: 25vh;
     }
   }
 `;
