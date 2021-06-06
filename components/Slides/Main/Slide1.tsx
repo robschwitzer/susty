@@ -4,7 +4,7 @@ import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
 import context, { TContext, TComponent } from "context";
 
-const P1 = (): ReactNode => <H1>The Road to Net Zero</H1>;
+const P1 = (): ReactNode => <H1>Sup Binch</H1>;
 const P2 = (): ReactNode => (
   <Body>
     ‘Net zero emissions’ refers to achieving an overall balance between
@@ -31,8 +31,10 @@ const componentMap: TComponent[] = [
   { Component: P4 },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id }));
 
-export const Intro1 = (props): ReactNode => (
-  <Template componentMap={componentMap} {...props} />
-);
+export const Main1 = (props): ReactNode => {
+  return (
+    <Template componentMap={componentMap} {...props} />
+  )
+};
 
-Intro1.displayName = "Intro1";
+Main1.displayName = "Main1";

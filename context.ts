@@ -1,15 +1,15 @@
-import { createContext } from "react";
+import { createContext, FC } from "react";
 import { THEMES, Theme } from "components/Layout/themes";
 
 export interface TComponent {
-  Component: Function;
+  Component: FC<{ displayName?: string; inProp?: boolean; }>;
   id: number;
+  stackName?: string;
 }
 
 export interface TContext {
   setCurrentSlide: Function;
   setCurrentStack: Function;
-  setShowSidebar: Function;
   setTheme: Function;
   currentSlide: number;
   currentStack: TComponent[];
@@ -20,7 +20,6 @@ export interface TContext {
 export default createContext<TContext>({
   setCurrentSlide: () => {},
   setCurrentStack: () => {},
-  setShowSidebar: () => {},
   setTheme: () => {},
   currentSlide: 0,
   currentStack: [],

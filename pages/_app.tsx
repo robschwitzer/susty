@@ -1,28 +1,47 @@
 import type { AppProps } from "next/app";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useWindowSize } from "react-use";
 import Context, { TContext, TComponent } from "context";
 import Layout from "components/Layout/Layout";
 import { THEMES, Theme } from "components/Layout/themes";
 import variables from "variables";
 import { Intro1, Intro2, Intro3 } from "components/Slides/Intro";
+import { Main1, Main2 } from "components/Slides/Main";
+
+export const STACK_NAMES = {
+  INTRO: "intro",
+  MAIN: "main"
+} as { [key: string]: string; }
 
 const introComponents: TComponent[] = [
   { Component: Intro1 },
   { Component: Intro2 },
   { Component: Intro3 },
-].map((o: any, id: number): TComponent => Object.assign(o, { id }));
+].map((o: any, id: number): TComponent => Object.assign(o, { id, stackName: STACK_NAMES.INTRO }));
 
-const componentMaps: TComponent[][] = [introComponents];
+const mainComponents: TComponent[] = [
+  { Component: Main1 },
+  { Component: Main2 },
+].map((o: any, id: number): TComponent => Object.assign(o, { id, stackName: STACK_NAMES.MAIN }));
+
+export const componentMaps: TComponent[][] = [introComponents, mainComponents];
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { width } = useWindowSize();
   const [theme, setTheme] = useState<Theme>(THEMES[0]);
-  const [showSidebar, setShowSidebar] = useState<boolean>(false);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [currentSlide, _setCurrentSlide] = useState<number>(0);
   const [currentStack, _setCurrentStack] = useState<TComponent[]>(
     componentMaps[0]
   );
+
+  useEffect(() => {
+    if (isTransitioning) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 500);
+    }
+  }, [isTransitioning])
 
   const handleSetTheme = useCallback((newTheme: Theme): void => {
     if (newTheme) {
@@ -46,12 +65,15 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     [_setCurrentSlide]
   );
 
-  const setCurrentStack = useCallback((stack?: TComponent[]) => {
+  const setCurrentStack = useCallback((stack?: TComponent[], slide?: string) => {
     window.scrollTo(0, 0);
-    _setCurrentSlide(0);
-
+    setIsTransitioning(true);
+    if (slide) {
+      _setCurrentSlide(Number(slide));
+    }
+    
     if (stack) {
-      setCurrentStack(stack);
+      _setCurrentStack(stack);
       return;
     }
 
@@ -60,20 +82,19 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       if (index + 1 < componentMaps.length) return componentMaps[index + 1];
       return stack;
     });
-  }, []);
+  }, [_setCurrentStack]);
 
   const context: TContext = useMemo(
     (): TContext => ({
       setCurrentSlide,
       setCurrentStack,
-      setShowSidebar,
       setTheme: handleSetTheme,
       currentSlide,
       currentStack,
-      showSidebar,
+      showSidebar: !isTransitioning,
       theme,
     }),
-    [currentSlide, theme]
+    [currentSlide, currentStack, theme, isTransitioning]
   );
 
   if (width < variables.breakpoints.medium) {

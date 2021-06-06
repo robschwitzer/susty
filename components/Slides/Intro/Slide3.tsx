@@ -22,7 +22,7 @@ const bulletPoints: any[] = data
     (text, i): ReactNode =>
       /* fancy 😉 */
       (): ReactNode =>
-        <Body key={i}>{text}</Body>
+        <Body style={{ fontSize: 30 }} key={i}>{text}</Body>
   )
   .map((Component, id) => ({ Component, id }));
 
@@ -44,11 +44,10 @@ const P3 = ({ inProp }: { inProp: boolean }): ReactNode => {
   return <div>{children}</div>;
 };
 const P4 = (): ReactNode => {
-  const { setCurrentStack, setTheme, setShowSidebar } = useContext<TContext>(context);
+  const { setCurrentStack, setTheme } = useContext<TContext>(context);
   const onClick = (): void => {
     setTheme(THEMES.find(theme => theme.name === "brand"));
-    setCurrentStack();
-    setShowSidebar((show) => !show);
+    setCurrentStack(null, "0");
   };
 
   return <Button text="Hot Take ➡" onClick={onClick} />;
@@ -64,3 +63,5 @@ const componentMap: TComponent[] = [
 export const Intro3 = (props): ReactNode => (
   <Template componentMap={componentMap} {...props} />
 );
+
+Intro3.displayName = "Intro3";

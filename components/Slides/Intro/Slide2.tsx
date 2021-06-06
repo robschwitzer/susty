@@ -51,3 +51,5 @@ const componentMap: TComponent[] = [
 export const Intro2 = (props): ReactNode => (
   <Template componentMap={componentMap} {...props} />
 );
+
+Intro2.displayName = "Intro2";

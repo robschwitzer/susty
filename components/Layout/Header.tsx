@@ -4,14 +4,24 @@ import variables from "variables";
 import context, { TContext } from "context";
 import { H1 } from "components/Typography";
 import { THEMES } from "components/Layout/themes";
+import { componentMaps, STACK_NAMES } from "pages/_app";
 
 const Header = (): JSX.Element => {
-  const { theme, setTheme, setCurrentSlide } = useContext<TContext>(context);
+  const { theme, setTheme, setCurrentSlide, setCurrentStack, currentStack } = useContext<TContext>(context);
+  const onClick = (): void => {
+    const currentStackName = currentStack.find(() => true).stackName;
+    if (currentStackName !== STACK_NAMES.INTRO) {
+      setTheme();
+      setCurrentStack(componentMaps[0]);
+      setCurrentSlide(0);
+    }
+  };
+
   return (
     <>
-      <Container>
-        <Logo onClick={(): void => setCurrentSlide(0)}>Sphere</Logo>
-      </Container>
+      <LogoContainer>
+        <Logo onClick={onClick}>Sphere</Logo>
+      </LogoContainer>
       <Main />
       <Switch
         onClick={(): void =>
@@ -37,7 +47,7 @@ const Main = styled.div`
   max-height: 10vh;
 `;
 
-const Container = styled.div`
+const LogoContainer = styled.div`
   align-items: center;
   grid-area: logo;
   display: flex;
