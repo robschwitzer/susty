@@ -2,14 +2,13 @@ import { ReactNode, useContext } from "react";
 import Button from "components/Button";
 import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
-import context, { TContext } from "context";
-import { TComponent } from "pages/index";
+import context, { TContext, TComponent } from "context";
 
 const P1 = (): ReactNode => <H1>The Road to Net Zero</H1>;
 const P2 = (): ReactNode => (
   <Body>
     ‘Net zero emissions’ refers to achieving an overall balance between
-    greenhouse gas emissions produced and greenhouse gas emissions taken outof
+    greenhouse gas emissions produced and greenhouse gas emissions taken out of
     the atmosphere.
   </Body>
 );
@@ -22,12 +21,7 @@ const P3 = (): ReactNode => (
 );
 const P4 = (): ReactNode => {
   const { setCurrentSlide } = useContext<TContext>(context);
-  return (
-    <Button
-      text="Next"
-      onClick={(): void => setCurrentSlide((slide) => slide + 1)}
-    />
-  );
+  return <Button onClick={(): void => setCurrentSlide((slide) => slide + 1)} />;
 };
 
 const componentMap: TComponent[] = [
@@ -37,6 +31,6 @@ const componentMap: TComponent[] = [
   { Component: P4 },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id }));
 
-export const Slide1 = (props): ReactNode => (
+export const Intro1 = (props): ReactNode => (
   <Template componentMap={componentMap} {...props} />
 );

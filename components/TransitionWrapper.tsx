@@ -47,7 +47,7 @@ export const defaultTransitionStyles: TransitionStyles = {
 };
 
 const AnimatedWrapper = styled.div`
-  grid-area: main;
+  grid-area: ${({ styles }) => styles && styles.gridArea ? styles.gridArea : 'main'};
   transition: all 500ms ease-out;
   ${({ state, styles }: StyleProps) =>
     styles

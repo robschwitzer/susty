@@ -1,6 +1,6 @@
-import { EffectCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const useInterval = (callback, delay, clear): void => {
+export const useInterval = (callback, delay, clear): void => {
   const savedCallback = useRef<Function | null>(null);
 
   // Remember the latest callback.

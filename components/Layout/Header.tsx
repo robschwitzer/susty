@@ -7,7 +7,6 @@ import { THEMES } from "components/Layout/themes";
 
 const Header = (): JSX.Element => {
   const { theme, setTheme, setCurrentSlide } = useContext<TContext>(context);
-
   return (
     <>
       <Container>
@@ -35,6 +34,7 @@ export default Header;
 
 const Main = styled.div`
   grid-area: header;
+  max-height: 10vh;
 `;
 
 const Container = styled.div`
@@ -43,6 +43,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 20px;
+  max-height: 10vh;
 `;
 
 const Logo = styled(H1)`
@@ -64,6 +65,7 @@ const Switch = styled.a`
   cursor: pointer;
   display: flex;
   font-size: 30px;
+  grid-area: switch;
   justify-content: center;
   user-select: none;
 `;

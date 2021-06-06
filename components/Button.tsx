@@ -1,14 +1,17 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 import variables from "variables";
 
 interface Props {
   text?: string;
+  style?: CSSProperties;
   onClick: any;
 }
 
-const Button = ({ text = "Click", onClick }: Props): JSX.Element => (
-  <Container onClick={onClick}>{text}</Container>
+const Button = ({ text = "Next", onClick, style }: Props): JSX.Element => (
+  <div style={{ position: 'fixed', overflow: 'visible' }}>
+    <Container style={style} onClick={onClick}>{text}</Container>
+  </div>
 );
 
 export default Button;
