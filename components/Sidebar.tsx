@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { ReactNode, useContext, useMemo } from "react";
 import context, { TContext } from "context";
-import variables from "variables";
 import TransitionWrapper from "components/TransitionWrapper";
 import { componentMaps, STACK_NAMES } from "pages/_app";
 import { Body } from "components/Typography";
@@ -54,13 +53,14 @@ const Sidebar = (): JSX.Element => {
   };
 
   const onClickCategory = (id) => {    
+    setTheme();
     setCurrentSlide(id);
   };
 
   const children = useMemo((): ReactNode | ReactNode[] => {
     return stackName === STACK_NAMES.INTRO ? (
       <NavItem onClick={() => onClickNavigation(STACK_NAMES.MAIN, "1")}>
-        Explore
+        &nbsp;&nbsp;&nbsp;Explore
       </NavItem>
     ) : (
       [
@@ -108,7 +108,7 @@ const Container = styled.section`
 `;
 
 const NavItem = styled(Body)<{ selected?: boolean; }>`
-  --left: 6vw;
+  --left: 8vw;
   align-self: flex-start;
   cursor: pointer;
   display: flex;

@@ -1,42 +1,60 @@
 import { ReactNode, useContext } from "react";
 import Button from "components/Button";
 import Template from "components/Slides/Template";
-import { H1, Body } from "components/Typography";
+import { H1, H3, Body } from "components/Typography";
 import context, { TContext, TComponent } from "context";
 
-const TITLE = "At Home"
+const TITLE: string = "Household";
 
-const P1 = (): ReactNode => <H1>{TITLE}</H1>;
-const P2 = (): ReactNode => (
-  <Body>
-    ‘Net zero emissions’ refers to achieving an overall balance between
-    greenhouse gas emissions produced and greenhouse gas emissions taken out of
-    the atmosphere.
-  </Body>
-);
-const P3 = (): ReactNode => (
-  <Body>
-    Getting to net zero means we can still produce some emissions, as long as
-    they are offset by processes that reduce greenhouse gases already in the
-    atmosphere.
-  </Body>
-);
-const P4 = (): ReactNode => {
-  const { setCurrentSlide } = useContext<TContext>(context);
-  return <Button onClick={(): void => setCurrentSlide((slide) => slide + 1)} />;
-};
+const children: TComponent[] = [
+  {
+    title: "🧦 Clean the lint trap",
+    sub: "A clean dryer filter reduces drying time, which uses less electricity",
+  },
+  {
+    title: "🔆 Turn off the lights",
+    sub: "You save money and waste less energy by not lighting unoccupied rooms",
+  },
+  {
+    title: "♽ Do you need all that paper towel?",
+    sub: "Most times when we reach for paper towel, we should be reaching for it's fabric counterpart",
+  },
+  {
+    title: "🛁 Turn down your water heater",
+    sub: "You probably don't need it to be set to 140.",
+  },
+].map((item, id) => ({
+  Component: () => (
+    <div>
+      <Body>{item.title}</Body>
+      <H3>{item.sub}</H3>
+    </div>
+  ),
+  id,
+}));
 
 const componentMap: TComponent[] = [
-  { Component: P1 },
-  { Component: P2 },
-  { Component: P3 },
-  // { Component: P4 },
+  { Component: (): ReactNode => <H1>{TITLE}</H1> },
+  {
+    Component: (): ReactNode => (
+      <Body>
+        Here are some quick wins that you can do around the house right now:
+      </Body>
+    ),
+  },
+  ...children,
+  {
+    Component: (): ReactNode => {
+      const { setCurrentSlide, setTheme } = useContext<TContext>(context);
+      const onClick = (): void => {
+        setTheme();
+        setCurrentSlide((slide) => slide + 1);
+      };
+      return <Button onClick={onClick} />;
+    },
+  },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id }));
 
-export const Main2 = (props): ReactNode => {
-  return (
-    <Template componentMap={componentMap} {...props} />
-  )
-};
+export const Main2 = (props): ReactNode => <Template componentMap={componentMap} {...props} />;
 
 Main2.displayName = TITLE;

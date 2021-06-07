@@ -4,39 +4,35 @@ import Template from "components/Slides/Template";
 import { H1, Body } from "components/Typography";
 import context, { TContext, TComponent } from "context";
 
-const TITLE = "Clothing"
+const TITLE: string = "Clothing";
 
-const P1 = (): ReactNode => <H1>{TITLE}</H1>;
-const P2 = (): ReactNode => (
-  <Body>
-    ‘Net zero emissions’ refers to achieving an overall balance between
-    greenhouse gas emissions produced and greenhouse gas emissions taken out of
-    the atmosphere.
-  </Body>
-);
-const P3 = (): ReactNode => (
-  <Body>
-    Getting to net zero means we can still produce some emissions, as long as
-    they are offset by processes that reduce greenhouse gases already in the
-    atmosphere.
-  </Body>
-);
-const P4 = (): ReactNode => {
-  const { setCurrentSlide } = useContext<TContext>(context);
-  return <Button onClick={(): void => setCurrentSlide((slide) => slide + 1)} />;
-};
+const data: string[] = [
+  "The fashion industry is the world's second worst polluter, surpassed only by oil.",
+  "The average North American consumer discards 81 pounds of textiles per year (😱). The fast fashion industry contributes to much of this waste with it's cheaply made garmets that lose their shape and color after only a few wears.",
+  "You likely don't need 20+ t-shirts or 10 pairs of pants. Consider donating some rarely worn items, and curating a well thought out, intentional wardrobe.",
+  "Instead of shopping merely by price tag, consider the slow fashion movement. Slow fashion encourages thoughtful ownership by seeking out timeless, well made pieces that will stand the test of time not only in quality, but also in style.",
+];
+
+const children = data.map((item, id) => ({
+  Component: () => <Body>{item}</Body>,
+  id,
+}));
 
 const componentMap: TComponent[] = [
-  { Component: P1 },
-  { Component: P2 },
-  { Component: P3 },
-  { Component: P4 },
+  { Component: (): ReactNode => <H1>{TITLE}</H1> },
+  ...children,
+  {
+    Component: (): ReactNode => {
+      const { setCurrentSlide, setTheme } = useContext<TContext>(context);
+      const onClick = (): void => {
+        setTheme();
+        setCurrentSlide((slide) => slide + 1);
+      };
+      return <Button onClick={onClick} />;
+    },
+  },
 ].map((o: any, id: number): TComponent => Object.assign(o, { id }));
 
-export const Main3 = (props): ReactNode => {
-  return (
-    <Template componentMap={componentMap} {...props} />
-  )
-};
+export const Main3 = (props): ReactNode => <Template componentMap={componentMap} {...props} />;
 
 Main3.displayName = TITLE;

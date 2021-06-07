@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import variables from "variables";
 
 export const GlobalStyle = createGlobalStyle`
   html,
@@ -51,6 +50,7 @@ export const GlobalStyle = createGlobalStyle`
     touch-action: pan-y;
     max-height: 100vh;
     max-width: 100vw;
+    overflow-x: hidden;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
     -webkit-touch-callout: none;

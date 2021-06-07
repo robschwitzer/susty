@@ -29,7 +29,7 @@ const Container = styled.div<ThemeProps>`
   box-sizing: border-box;
   color: ${({ theme }) => theme.fg};
   display: grid;
-  grid-template-columns: 1.5fr 4fr 1fr;
+  grid-template-columns: 2fr 4fr 1fr;
   grid-template-rows: minmax(auto, 10vh) minmax(100vh, auto);
   gap: 0px 0px;
   grid-template-areas:
@@ -37,4 +37,5 @@ const Container = styled.div<ThemeProps>`
     "sidebar main .";
   justify-content: flex-start;
   min-height: 100vh;
+  max-width: 100vw;
 `;
